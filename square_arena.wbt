@@ -1,0 +1,354 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
+
+WorldInfo {
+  info [
+    "TurtleBot3 DRL Navigation — Square Arena with Curriculum Learning"
+  ]
+  title "DRL Navigation (Curriculum)"
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      coulombFriction [0.8]
+      softCFM 0.2
+      softERP 0.4
+      bounce 0
+      bounceVelocity 0
+    }
+  ]
+}
+
+Viewpoint {
+  orientation -0.577 0.577 0.577 2.094
+  position 0 0 5
+}
+
+TexturedBackground {
+}
+
+TexturedBackgroundLight {
+}
+
+# ═══════════════════════════════════════════════════════════
+# Square Arena Floor (3m × 3m)
+# ═══════════════════════════════════════════════════════════
+DEF FLOOR Solid {
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "https://raw.githubusercontent.com/cyberbotics/webots/released/projects/default/worlds/textures/grid.png"
+          ]
+        }
+        textureTransform TextureTransform {
+          scale 6 6
+        }
+        roughness 0.9
+      }
+      geometry Plane {
+        size 3 3
+      }
+    }
+  ]
+  name "floor"
+  boundingObject Plane {
+    size 3 3
+  }
+}
+
+# ═══════════════════════════════════════════════════════════
+# Walls (4 walls forming a 3m × 3m enclosure, 0.4m height)
+# ═══════════════════════════════════════════════════════════
+
+# North wall (y = +1.5)
+DEF WALL_N Solid {
+  translation 0 1.5 0.2
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.4 0.4 0.45
+        roughness 0.7
+      }
+      geometry Box {
+        size 3.1 0.1 0.4
+      }
+    }
+  ]
+  name "wall_north"
+  boundingObject Box {
+    size 3.1 0.1 0.4
+  }
+}
+
+# South wall (y = -1.5)
+DEF WALL_S Solid {
+  translation 0 -1.5 0.2
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.4 0.4 0.45
+        roughness 0.7
+      }
+      geometry Box {
+        size 3.1 0.1 0.4
+      }
+    }
+  ]
+  name "wall_south"
+  boundingObject Box {
+    size 3.1 0.1 0.4
+  }
+}
+
+# East wall (x = +1.5)
+DEF WALL_E Solid {
+  translation 1.5 0 0.2
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.4 0.4 0.45
+        roughness 0.7
+      }
+      geometry Box {
+        size 0.1 3.1 0.4
+      }
+    }
+  ]
+  name "wall_east"
+  boundingObject Box {
+    size 0.1 3.1 0.4
+  }
+}
+
+# West wall (x = -1.5)
+DEF WALL_W Solid {
+  translation -1.5 0 0.2
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.4 0.4 0.45
+        roughness 0.7
+      }
+      geometry Box {
+        size 0.1 3.1 0.4
+      }
+    }
+  ]
+  name "wall_west"
+  boundingObject Box {
+    size 0.1 3.1 0.4
+  }
+}
+
+# ═══════════════════════════════════════════════════════════
+# TurtleBot3 Burger (the RL agent)
+# ═══════════════════════════════════════════════════════════
+DEF TURTLEBOT3 TurtleBot3Burger {
+  translation 0 0 0.05
+  rotation 0 0 1 0
+  controller "<extern>"
+}
+
+# ═══════════════════════════════════════════════════════════
+# Static Obstacles (wooden boxes — supervisor hides/shows)
+# No physics — moved programmatically by supervisor
+# ═══════════════════════════════════════════════════════════
+DEF STATIC_1 Solid {
+  translation 0.0 0.0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.6 0.4 0.2
+        roughness 0.8
+      }
+      geometry Box {
+        size 0.25 0.25 0.3
+      }
+    }
+  ]
+  name "static_obs_1"
+  boundingObject Box {
+    size 0.25 0.25 0.3
+  }
+}
+
+DEF STATIC_2 Solid {
+  translation 0.0 0.5 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.6 0.4 0.2
+        roughness 0.8
+      }
+      geometry Box {
+        size 0.25 0.25 0.3
+      }
+    }
+  ]
+  name "static_obs_2"
+  boundingObject Box {
+    size 0.25 0.25 0.3
+  }
+}
+
+DEF STATIC_3 Solid {
+  translation 0.0 1.0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.6 0.4 0.2
+        roughness 0.8
+      }
+      geometry Box {
+        size 0.25 0.25 0.3
+      }
+    }
+  ]
+  name "static_obs_3"
+  boundingObject Box {
+    size 0.25 0.25 0.3
+  }
+}
+
+DEF STATIC_4 Solid {
+  translation 0.0 1.5 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.6 0.4 0.2
+        roughness 0.8
+      }
+      geometry Box {
+        size 0.25 0.25 0.3
+      }
+    }
+  ]
+  name "static_obs_4"
+  boundingObject Box {
+    size 0.25 0.25 0.3
+  }
+}
+
+# ═══════════════════════════════════════════════════════════
+# Dynamic Obstacles (coloured cylinders — supervisor moves)
+# No physics — moved programmatically by supervisor
+# ═══════════════════════════════════════════════════════════
+DEF OBS_1 Solid {
+  translation 0.0 0.0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.9 0.2 0.2
+        roughness 0.5
+      }
+      geometry Cylinder {
+        height 0.2
+        radius 0.10
+      }
+    }
+  ]
+  name "dynamic_obs_1"
+  boundingObject Cylinder {
+    height 0.2
+    radius 0.10
+  }
+}
+
+DEF OBS_2 Solid {
+  translation 0.5 0.0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.3 0.9
+        roughness 0.5
+      }
+      geometry Cylinder {
+        height 0.2
+        radius 0.10
+      }
+    }
+  ]
+  name "dynamic_obs_2"
+  boundingObject Cylinder {
+    height 0.2
+    radius 0.10
+  }
+}
+
+DEF OBS_3 Solid {
+  translation 1.0 0.0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.2 0.9 0.3
+        roughness 0.5
+      }
+      geometry Cylinder {
+        height 0.2
+        radius 0.10
+      }
+    }
+  ]
+  name "dynamic_obs_3"
+  boundingObject Cylinder {
+    height 0.2
+    radius 0.10
+  }
+}
+
+# ═══════════════════════════════════════════════════════════
+# Visual Markers (supervisor moves these — no physics/collision)
+# ═══════════════════════════════════════════════════════════
+
+# Green circle = Goal position (small marker, won't hide robot)
+DEF GOAL_MARKER Solid {
+  translation 0 0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.95 0.2
+        transparency 0.3
+        roughness 0.2
+        emissiveColor 0.1 0.8 0.15
+      }
+      geometry Cylinder {
+        height 0.02
+        radius 0.08
+      }
+    }
+  ]
+  name "goal_marker"
+}
+
+# Blue circle = Start position
+DEF START_MARKER Solid {
+  translation 0 0 -10.0
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.3 0.95
+        transparency 0.3
+        roughness 0.2
+        emissiveColor 0.1 0.15 0.8
+      }
+      geometry Cylinder {
+        height 0.02
+        radius 0.06
+      }
+    }
+  ]
+  name "start_marker"
+}
+
+# ═══════════════════════════════════════════════════════════
+# Supervisor Robot (headless — runs reset/obstacle logic)
+# ═══════════════════════════════════════════════════════════
+DEF SUPERVISOR Robot {
+  name "supervisor"
+  controller "<extern>"
+  supervisor TRUE
+}

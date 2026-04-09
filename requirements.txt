@@ -1,0 +1,14 @@
+# Stable Baselines 3 (Deep Reinforcement Learning)
+stable-baselines3[extra]
+gymnasium
+numpy
+tensorboard
+
+# ROS2 - Usually installed via 'apt' but included here for completeness
+# rclpy
+# ament-index-python (ROS2)
+
+# Utilities
+matplotlib
+pandas
+scipy

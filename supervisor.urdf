@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<robot name="supervisor">
+    <webots>
+        <plugin type="nav_env_pkg.supervisor_plugin.SupervisorPlugin" />
+    </webots>
+</robot>
